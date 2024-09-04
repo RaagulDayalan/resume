@@ -1,0 +1,142 @@
+/* TopBar.css */
+.top-bar {
+  display: flex;
+  align-items: center;
+  background-color: #333;
+  padding: 10px 20px;
+  
+  color: white;
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+  padding-right: 150px;
+  padding-left: 10px;
+  object-fit: cover;
+  cursor: pointer;
+}
+
+.buttons {
+  display: flex;
+  gap: 10px;
+  
+}
+
+.top-bar-button {
+  background-color: #555;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+  
+}
+
+.top-bar-button:hover {
+  background-color: #777;
+}
+/* App.css */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+}
+
+.content {
+  padding: 30px;
+  background-color: white;
+  margin: 30px auto;
+  max-width: 60%;
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.1);
+  border-radius: 16px;
+}
+
+.content h1 {
+  color: #333;
+  font-size: 28px;
+  margin-bottom: 15px;
+}
+.profile-img {
+  width: 40px; /* Adjust size as needed */
+  height: 40px; /* Match width for circular shape */
+  border-radius: 50%;
+  object-fit: cover;
+  margin-left: 20px;
+  cursor: pointer;
+}
+.content li {
+  color: #000000;
+  font-size: 18px;
+  margin-bottom: 14px;
+}
+
+.location-date span{
+  text-align: right;
+}
+
+.company-name {
+  color: #333;
+  font-size: 28px;
+  margin-bottom: 15px;
+}
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  
+}
+
+.modal-content {
+  position: relative;
+  background-color: white;
+  padding: 30px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.large-img {
+  max-width: 200%;
+  height: 200px;
+}
+
+.close {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  padding: 3px;
+  font-size: 40px;
+  color: #000000;
+  cursor: pointer;
+  transition: background-color 0.5s;
+}
+.close:hover{
+  background-color: #ff0000;
+
+}
+  
+.skills-buttons {
+  background-color: #fff9a8;
+  border: none;
+  color: rgb(0, 0, 0);
+  padding: 4px 2px;
+  cursor: pointer;
+  font-size: 17px;
+  border-radius: 50%;
+  transition: background-color 0.5s, border-radius 1s, font-size 0.5s ;
+}
+
+.skills-buttons:hover {
+  background-color: #ff0000;
+  border-radius: 1%;
+  font-size: 20px;
+}
