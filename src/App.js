@@ -145,7 +145,7 @@ function App() {
           <div className="content">
             <h3>my current Architecture</h3>
           <img
-                    src="icons8-download-symbol-24.png"
+                    src="infra-architecture.drawio.png"
                     alt="download"
                     className="img"
                   ></img>
