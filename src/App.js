@@ -8,12 +8,14 @@ function App() {
   const [about, setAbout] = useState(1);
   const [certification, setCertification] = useState(0);
   const [img, setImg] = useState(0);
+  const [Architecure, setArchitecure] = useState(0);
   const handleWorkExp = async () => {
     setContact(0);
     setEducation(0);
     setWorkExp(1);
     setAbout(0);
     setCertification(0);
+    setArchitecure(0);
     console.log(workExp, education, contact);
   };
   const handleEducation = async () => {
@@ -22,6 +24,7 @@ function App() {
     setWorkExp(0);
     setAbout(0);
     setCertification(0);
+    setArchitecure(0);
     console.log(workExp, education, contact);
   };
   const handleCertification = async () => {
@@ -30,6 +33,7 @@ function App() {
     setWorkExp(0);
     setAbout(0);
     setCertification(1);
+    setArchitecure(0);
     console.log(workExp, education, contact);
   };
   const handleAbout = async () => {
@@ -38,6 +42,7 @@ function App() {
     setWorkExp(0);
     setAbout(1);
     setCertification(0);
+    setArchitecure(0);
     console.log(workExp, education, contact);
   };
   const handleContact = async () => {
@@ -46,6 +51,7 @@ function App() {
     setWorkExp(0);
     setAbout(0);
     setCertification(0);
+    setArchitecure(0);
     console.log(workExp, education, contact);
   };
   const showImg = () => {
@@ -55,6 +61,16 @@ function App() {
     setAbout(0);
     setCertification(0);
     setImg(1);
+    setArchitecure(0);
+  };
+  const handleArchitecure = () => {
+    setContact(0);
+    setEducation(0);
+    setWorkExp(0);
+    setAbout(0);
+    setCertification(0);
+    setImg(0);
+    setArchitecure(1);
   };
   const handleCloseImg = () => {
     setContact(0);
@@ -62,6 +78,7 @@ function App() {
     setWorkExp(0);
     setAbout(1);
     setCertification(0);
+    setArchitecure(0);
     setImg(0);
   };
 
@@ -119,8 +136,21 @@ function App() {
                 </span>
               </button>
             </a>
+            <button className="top-bar-button" onClick={handleArchitecure}>
+              Architectures
+            </button>
           </div>
         </div>
+        {Architecure === 1 && <>
+          <div className="content">
+            <h3>my current Architecture</h3>
+          <img
+                    src="icons8-download-symbol-24.png"
+                    alt="download"
+                    className="img"
+                  ></img>
+            </div>
+        </>}
         {img === 1 && (
           <div className="modal">
             <div className="modal-content">

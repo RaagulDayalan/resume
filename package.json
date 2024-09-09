@@ -2,7 +2,7 @@
   "name": "temporary-app",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://raaguldayalan.github.io/",
+  "homepage": "http://raaguldayalan.github.io/resume",
   "dependencies": {
     "cra-template": "1.2.0",
     "react": "^18.3.1",
