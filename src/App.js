@@ -143,11 +143,34 @@ function App() {
         </div>
         {Architecure === 1 && <>
           <div className="content">
-            <h3>my current Architecture</h3>
+            <h3>web Architecture</h3>
+              <ul>
+                <li>
+                  <>ui application on s3 served by cloudfront / </>
+                </li>
+                <li>
+                  <>main backend application containerized springboot applicaiton running on ecs fronted by priv nlb and provided by asg /</>
+                </li>
+                <li>
+                  <>secondary backend by nodejs and python lambdas /</>
+                </li>
+                <li>
+                  <>database is rds backed mysql server on high secure server / </>
+                </li>
+                <li>
+                  <>cached by elastic cache redis / </>
+                </li>
+                <li>
+                  <>apis are provided by gateway intergrated with cognito authorizer/</>
+                </li>
+                <li>
+                  <>  a secondary private gateway for internal api level caching / </>
+                </li>
+              </ul>
           <img
                     src="infra-architecture.drawio.png"
                     alt="download"
-                    className="img"
+                    className="architecture-img"
                   ></img>
             </div>
         </>}
