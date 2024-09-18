@@ -99,6 +99,32 @@ function App() {
             </p>
           </section>
         )}
+        {activeTab === "about" && (
+          <section className="about">
+            <h2>LOL</h2>
+            <p>
+              DevOps, Neither a good ui dev nor a good backend dev but can work and debug both
+            </p>
+            <p>
+              they are <s>like</s> <b>Packers and movers</b> they moves the application from developer's machine into the world (PROD)
+            </p>
+            <p>
+              with all the admin access they get they feel like <b>God</b>. 
+            </p>
+            <p>
+              creating machines and serverless servers in the air maintaining the whole instructure in code (IaC) in cloud 
+            </p>
+            <p>
+              autmating instructure provisioning and being up to date with new ondemand best practices
+            </p>
+            <p>
+              with the requirement to work with every team, all the front, back, QA and more teams that I don't even know about. 
+            </p>
+            <p>
+              DevOps are the <b>GOAT</b>, and I'm proud to be a DevOps/Cloud Engineer.
+            </p>
+          </section>
+        )}
 
         {activeTab === "experience" && (
           <section className="experience">
@@ -167,6 +193,18 @@ function App() {
               <p>Chennai, India | Aug 2018 - Jul 2022</p>
               <p>CGPA: 8.18</p>
             </div>
+            <div className="degree">
+              <h3>Velammal Matriculation Higher Secondary School</h3>
+              <p>12th</p>
+              <p>Chennai, India | Jun 2017 - Apr 2018</p>
+              <p>Percentage: 88.41</p>
+            </div>
+            <div className="degree">
+            <h3>Velammal Matriculation Higher Secondary School</h3>
+            <p>10th</p>
+              <p>Chennai, India | Jun 2015 - Apr 2016</p>
+              <p>Percentage: 91.6</p>
+            </div>
           </section>
         )}
 
@@ -176,10 +214,10 @@ function App() {
               <h2>Certifications</h2>
               <ul>
                 <li>
-                  AWS Certified Solutions Architect - Associate (Scored 91%)
+                  <b>AWS Certified Solutions Architect - Associate (Scored 91%)</b>
                 </li>
                 <li>AWS CloudFormation Master Class</li>
-                <li>AWS Certified Cloud Practitioner</li>
+                <li>AWS Cloud Practitioner Udemy</li>
                 <li>Introduction to Machine Learning</li>
                 <li>Skill Certifications - Python, MySQL (HackerRank)</li>
               </ul>
