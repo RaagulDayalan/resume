@@ -1,469 +1,341 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import "./App.css";
 
 function App() {
-  const [workExp, setWorkExp] = useState(0);
-  const [education, setEducation] = useState(0);
-  const [contact, setContact] = useState(0);
-  const [about, setAbout] = useState(1);
-  const [certification, setCertification] = useState(0);
-  const [img, setImg] = useState(0);
-  const [Architecure, setArchitecure] = useState(0);
-  const handleWorkExp = async () => {
-    setContact(0);
-    setEducation(0);
-    setWorkExp(1);
-    setAbout(0);
-    setCertification(0);
-    setArchitecure(0);
-    console.log(workExp, education, contact);
+  const [activeTab, setActiveTab] = useState("about");
+  const [showModal, setShowModal] = useState(false);
+
+  const handleTabChange = (tab) => {
+    setActiveTab(tab);
   };
-  const handleEducation = async () => {
-    setContact(0);
-    setEducation(1);
-    setWorkExp(0);
-    setAbout(0);
-    setCertification(0);
-    setArchitecure(0);
-    console.log(workExp, education, contact);
-  };
-  const handleCertification = async () => {
-    setContact(0);
-    setEducation(0);
-    setWorkExp(0);
-    setAbout(0);
-    setCertification(1);
-    setArchitecure(0);
-    console.log(workExp, education, contact);
-  };
-  const handleAbout = async () => {
-    setContact(0);
-    setEducation(0);
-    setWorkExp(0);
-    setAbout(1);
-    setCertification(0);
-    setArchitecure(0);
-    console.log(workExp, education, contact);
-  };
-  const handleContact = async () => {
-    setContact(1);
-    setEducation(0);
-    setWorkExp(0);
-    setAbout(0);
-    setCertification(0);
-    setArchitecure(0);
-    console.log(workExp, education, contact);
-  };
-  const showImg = () => {
-    setContact(0);
-    setEducation(0);
-    setWorkExp(0);
-    setAbout(0);
-    setCertification(0);
-    setImg(1);
-    setArchitecure(0);
-  };
-  const handleArchitecure = () => {
-    setContact(0);
-    setEducation(0);
-    setWorkExp(0);
-    setAbout(0);
-    setCertification(0);
-    setImg(0);
-    setArchitecure(1);
-  };
-  const handleCloseImg = () => {
-    setContact(0);
-    setEducation(0);
-    setWorkExp(0);
-    setAbout(1);
-    setCertification(0);
-    setArchitecure(0);
-    setImg(0);
+
+  const toggleModal = () => {
+    setShowModal(!showModal);
   };
 
   return (
     <div className="App">
-      <header className="App-header">
-        <div className="top-bar">
-          <img
-            className="profile-img"
-            src="raagul-img.jpeg"
-            alt="Profile pic"
-            onClick={showImg}
-          ></img>
-          <div className="logo" onClick={showImg}>
-            RAAGUL D
-            <div
-              style={{
-                "font-size": "14px",
-              }}
-              onClick={showImg}
-            >
-              Cloud Engineer, DevOps Engineer
-            </div>
-          </div>
-
-          <div className="buttons">
-            <button className="top-bar-button" onClick={handleAbout}>
-              ABOUT
-            </button>
-            <button className="top-bar-button" onClick={handleWorkExp}>
-              WORK EXPERIENCE
-            </button>
-            <button className="top-bar-button" onClick={handleEducation}>
-              EDUCATION
-            </button>
-            <button className="top-bar-button" onClick={handleCertification}>
-              CERTIFICATIONS
-            </button>
-            <button className="top-bar-button" onClick={handleContact}>
-              CONTACT
-            </button>
-            <a href="resume.pdf" download="resume.pdf">
-              <button className="top-bar-button">
-                <img
-                  src="icons8-download-symbol-24.png"
-                  alt="download"
-                  className="img"
-                ></img>
-                <span
-                  style={{
-                    "padding-left": "10px",
-                  }}
-                >
-                  RESUME{" "}
-                </span>
-              </button>
-            </a>
-            <button className="top-bar-button" onClick={handleArchitecure}>
-              Architectures
-            </button>
-          </div>
+      <header className="top-bar">
+        <img
+          className="profile-img"
+          src="raagul-img.jpeg"
+          alt="Profile pic"
+          onClick={toggleModal}
+        />
+        <div className="logo" onClick={toggleModal}>
+          <h1>RAAGUL D</h1>
+          <h2>Cloud Engineer, DevOps Engineer</h2>
         </div>
-        {Architecure === 1 && <>
-          <div className="content">
-            <h3>web Architecture</h3>
-              <ul>
-                <li>
-                  <>ui application on s3 served by cloudfront / </>
-                </li>
-                <li>
-                  <>main backend application containerized springboot applicaiton running on ecs fronted by priv nlb and provided by asg /</>
-                </li>
-                <li>
-                  <>secondary backend by nodejs and python lambdas /</>
-                </li>
-                <li>
-                  <>database is rds backed mysql server on high secure server / </>
-                </li>
-                <li>
-                  <>cached by elastic cache redis / </>
-                </li>
-                <li>
-                  <>apis are provided by gateway intergrated with cognito authorizer/</>
-                </li>
-                <li>
-                  <>  a secondary private gateway for internal api level caching / </>
-                </li>
-              </ul>
-          <img
-                    src="infra-architecture.drawio.png"
-                    alt="download"
-                    className="architecture-img"
-                  ></img>
-            </div>
-        </>}
-        {img === 1 && (
-          <div className="modal">
-            <div className="modal-content">
-              <span className="close" onClick={handleCloseImg}>
-                &times;
-              </span>
-              <img
-                src="raagul-img.jpeg"
-                alt="Large Profile"
-                className="large-img"
-                style={{"padding":"50px"}}
-              />
-              <a href="resume.pdf" download="resume.pdf">
-                <button >
-                  <img
-                    src="icons8-download-symbol-24.png"
-                    alt="download"
-                    className="img"
-                  ></img>
-                </button>
-              </a>
-              <div>
-                <div>
-                  RAAGUL D
-                  <div
-                    style={{
-                      "font-size": "14px",
-                    }}
-                  >
-                    Cloud Engineer, DevOps Engineer
-                  </div>
-                  <>AWS Certified</>
-                  <div
-                    style={{
-                      "font-size": "14px",
-                    }}
-                  >
-                    SKILLS:
-                  </div>
-                  <div>
-                    <button className="skills-buttons">
-                      {" "}
-                      Amazon Web Services (AWS)
-                    </button>
-                    <button className="skills-buttons"> Terraform </button>
-                    <button className="skills-buttons"> CloudFormation</button>
-                    <button className="skills-buttons"> CI/CD</button>
-                    <button className="skills-buttons"> AWS SDK</button>
-                    <button className="skills-buttons"> CLI</button>
-                  </div>
-                  <div>
-                    <button className="skills-buttons"> Docker</button>
-                    <button className="skills-buttons"> Node.js</button>
-                    <button className="skills-buttons"> Python</button>
-                    <button className="skills-buttons"> MySQL</button>
-                    <button className="skills-buttons"> Linux</button>
-                  </div>
-                  <button className="skills-buttons"> DynamoDB</button>
-                  <button className="skills-buttons"> Redis</button>
-                  <button className="skills-buttons"> Git</button>
-                  <button className="skills-buttons"> Postman</button>
-                  <button className="skills-buttons"> JMeter</button>
-                  <button className="skills-buttons"> Sonar</button>
-                  <button className="skills-buttons">
-                    CloudWatch (logs, metrics, Xray, dashboards, alarms, rum)
-                  </button>
-                  <div>Phone: +91 9791103580</div>
-                  <div>
-                    Email:{" "}
-                    <a href="mailto:raagul.d@gmail.com">raagul.d@gmail.com</a>
-                  </div>
-                  <div>
-                    <a href="https://www.linkedin.com/in/raagul-deenadayalan/">
-                      LinkedIn
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+        <nav className="nav-buttons">
+          <button
+            className={activeTab === "about" ? "active" : ""}
+            onClick={() => handleTabChange("about")}
+          >
+            ABOUT
+          </button>
+          <button
+            className={activeTab === "experience" ? "active" : ""}
+            onClick={() => handleTabChange("experience")}
+          >
+            WORK EXPERIENCE
+          </button>
+          <button
+            className={activeTab === "education" ? "active" : ""}
+            onClick={() => handleTabChange("education")}
+          >
+            EDUCATION
+          </button>
+          <button
+            className={activeTab === "certifications" ? "active" : ""}
+            onClick={() => handleTabChange("certifications")}
+          >
+            CERTIFICATIONS
+          </button>
+          <button
+            className={activeTab === "skills" ? "active" : ""}
+            onClick={() => handleTabChange("skills")}
+          >
+            SKILLS
+          </button>
+          <button
+            className={activeTab === "contact" ? "active" : ""}
+            onClick={() => handleTabChange("contact")}
+          >
+            CONTACT
+          </button>
+          <a
+            href="resume.pdf"
+            download="resume.pdf"
+            className="download-button"
+          >
+            <img
+              src="icons8-download-symbol-24.png"
+              alt="download"
+              className="download-icon"
+            />
+            RESUME
+          </a>
+          <button
+            className={activeTab === "architecture" ? "active" : ""}
+            onClick={() => handleTabChange("architecture")}
+          >
+            ARCHITECTURES
+          </button>
+        </nav>
+      </header>
+
+      <main className="content">
+        {activeTab === "about" && (
+          <section className="about">
+            <h2>About Me</h2>
+            <p>
+              As a Cloud Infrastructure Engineer at NCompass, I manage
+              infrastructure for our client Phonex, a B2B SaaS provider. With
+              more than two years of experience, I specialize in optimizing the
+              reliability, security, cost-efficiency, performance, and
+              monitoring of cloud environments. I architect and maintain robust,
+              scalable solutions tailored to client needs while adhering to
+              industry best practices.
+            </p>
+          </section>
         )}
-        {certification === 1 && (
-          <>
-            <div className="content">
+
+        {activeTab === "experience" && (
+          <section className="experience">
+            <h2>Work Experience</h2>
+            <div className="job">
+              <h3>NCOMPASS - Cloud Engineer, DevOps Engineer</h3>
+              <p className="job-details">Chennai, India | Aug 2022 – Present</p>
               <ul>
                 <li>
-                  <>AWS Certified Solutions Architect - Associate Scored 91%</>
+                  Maintained and optimized AWS cloud infrastructure for multiple
+                  clients, achieving high availability and enhanced security
+                  across diverse environments.
                 </li>
                 <li>
-                  <>AWS CloudFormation Master Class</>
+                  Developed and deployed scalable automation tools using
+                  Node.js, Python, and AWS SDK, significantly streamlining
+                  operations and improving efficiency.
                 </li>
                 <li>
-                  <>AWS Certified Cloud Practitioner</>
+                  Implemented cost reduction strategies that led to a 30%
+                  decrease in operational expenses, enhancing budget management
+                  for clients.
                 </li>
                 <li>
-                  <>Introduction to Machine Learning</>
+                  Monitored system performance using JMeter, identifying and
+                  addressing potential bottlenecks to maintain optimal system
+                  performance.
                 </li>
                 <li>
-                  <>Skill Certifications - Python, MySQL - HackerRank</>
+                  Contributed to disaster recovery planning and execution,
+                  including orchestrating automated deployments with
+                  CloudFormation templates and Terraform.
+                </li>
+                <li>
+                  Reduced deployment time by 50% by implementing performance
+                  optimization measures and employing Blue/Green Deployment
+                  strategies, which significantly improved overall deployment
+                  efficiency.
+                </li>
+                <li>
+                  Established and managed comprehensive monitoring and logging
+                  solutions using AWS CloudWatch, ensuring robust system
+                  visibility and quick issue resolution.
+                </li>
+                <li>
+                  Led a team of three in the maintenance and management of a
+                  SaaS platform infrastructure supporting over 300 tenants,
+                  ensuring high reliability and scalability.
+                </li>
+                <li>
+                  Enhanced coding standards and security practices by
+                  implementing a quality gateway with Sonar, resulting in
+                  improved code quality and reduced vulnerabilities.
                 </li>
               </ul>
             </div>
+          </section>
+        )}
+
+        {activeTab === "education" && (
+          <section className="education">
+            <h2>Education</h2>
+            <div className="degree">
+              <h3>ANNA UNIVERSITY</h3>
+              <p>Bachelor of Engineering in Electronics and Communication</p>
+              <p>Chennai, India | Aug 2018 - Jul 2022</p>
+              <p>CGPA: 8.18</p>
+            </div>
+          </section>
+        )}
+
+        {activeTab === "certifications" && (
+          <>
+            <section className="certifications">
+              <h2>Certifications</h2>
+              <ul>
+                <li>
+                  AWS Certified Solutions Architect - Associate (Scored 91%)
+                </li>
+                <li>AWS CloudFormation Master Class</li>
+                <li>AWS Certified Cloud Practitioner</li>
+                <li>Introduction to Machine Learning</li>
+                <li>Skill Certifications - Python, MySQL (HackerRank)</li>
+              </ul>
+            </section>
           </>
         )}
-        {about === 1 && (
-          <>
-            <div className="content">
-              <p
-                style={{
-                  "font-size": "20px",
-                }}
+        {activeTab === "skills" && (
+          <section className="skills">
+            <h2>SKILLS:</h2>
+            <div className="skills-container">
+              {[
+                "Amazon Web Services (AWS)",
+                "Terraform",
+                "CloudFormation",
+                "CI/CD",
+                "AWS SDK",
+                "CLI",
+                "Docker",
+                "Node.js",
+                "Python",
+                "MySQL",
+                "Linux",
+                "DynamoDB",
+                "Redis",
+                "Git",
+                "Postman",
+                "JMeter",
+                "Sonar",
+                "CloudWatch",
+              ].map((skill) => (
+                <span key={skill} className="skill-tag">
+                  {skill}
+                </span>
+              ))}
+            </div>
+          </section>
+        )}
+        {activeTab === "contact" && (
+          <section className="contact">
+            <h2>Contact Information</h2>
+            <p>Current Location: Chennai, India</p>
+            <p>Phone: +91 9791103580</p>
+            <p>WhatsApp: +91 9791103580</p>
+            <p>
+              Email: <a href="mailto:raagul.d@gmail.com">raagul.d@gmail.com</a>
+            </p>
+            <p>
+              <a
+                href="https://www.linkedin.com/in/raagul-deenadayalan/"
+                target="_blank"
+                rel="noopener noreferrer"
               >
-                As a Cloud Infrastructure Engineer at NCompass, I manage
-                infrastructure for our client Phonex, a B2B SaaS provider. With
-                more than two years of experience, I specialize in optimizing
-                the reliability, security, cost-efficiency, performance, and
-                monitoring of cloud environments. I architect and maintain
-                robust, scalable solutions tailored to client needs while
-                adhering to industry best practices.
-              </p>
-            </div>
-          </>
+                LinkedIn Profile
+              </a>
+            </p>
+          </section>
         )}
-        {contact === 1 && (
-          <>
-            <div className="content">
-              <h4>Current Location: Chennai, India</h4>
-              <h4>Phone: +91 9791103580</h4>
-              <h4>WhatsApp: +91 9791103580</h4>
-              <h4>
+
+        {activeTab === "architecture" && (
+          <section className="architecture">
+            <h2>Web Architecture</h2>
+            <ul>
+              <li>UI application on S3 served by CloudFront</li>
+              <li>
+                Main backend: Containerized Spring Boot application running on
+                ECS, fronted by private NLB and provided by ASG
+              </li>
+              <li>Secondary backend: Node.js and Python Lambdas</li>
+              <li>Database: RDS-backed MySQL server on high-security server</li>
+              <li>Caching: Elastic Cache Redis</li>
+              <li>
+                APIs: Provided by API Gateway integrated with Cognito authorizer
+              </li>
+              <li>Secondary private gateway for internal API-level caching</li>
+            </ul>
+            <img
+              src="infra-architecture.drawio.png"
+              alt="Infrastructure Architecture"
+              className="architecture-img"
+            />
+          </section>
+        )}
+      </main>
+
+      {showModal && (
+        <div className="modal" onClick={toggleModal}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <span className="close" onClick={toggleModal}>
+              &times;
+            </span>
+            <img
+              src="raagul-img.jpeg"
+              alt="Large Profile"
+              className="large-img"
+            />
+            <h2>RAAGUL D</h2>
+            <h3>Cloud Engineer, DevOps Engineer</h3>
+            <p>AWS Certified</p>
+            <h4>SKILLS:</h4>
+            <div className="skills-container">
+              {[
+                "Amazon Web Services (AWS)",
+                "Terraform",
+                "CloudFormation",
+                "CI/CD",
+                "AWS SDK",
+                "CLI",
+                "Docker",
+                "Node.js",
+                "Python",
+                "MySQL",
+                "Linux",
+                "DynamoDB",
+                "Redis",
+                "Git",
+                "Postman",
+                "JMeter",
+                "Sonar",
+                "CloudWatch",
+              ].map((skill) => (
+                <span key={skill} className="skill-tag">
+                  {skill}
+                </span>
+              ))}
+            </div>
+            <div className="modal-contact">
+              <p>Phone: +91 9791103580</p>
+              <p>
                 Email:{" "}
                 <a href="mailto:raagul.d@gmail.com">raagul.d@gmail.com</a>
-              </h4>
-              <h4>
-                <a href="https://www.linkedin.com/in/raagul-deenadayalan/">
-                  LinkedIn
+              </p>
+              <p>
+                <a
+                  href="https://www.linkedin.com/in/raagul-deenadayalan/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  LinkedIn Profile
                 </a>
-              </h4>
+              </p>
             </div>
-          </>
-        )}
-        {education === 1 && (
-          <>
-            <div className="content">
-              <h1>EDUCATION</h1>
-
-              <div>
-                <span
-                  style={{
-                    paddingRight: "50px",
-                    "font-size": "20px",
-                  }}
-                >
-                  ANNA UNIVERSITY
-                </span>
-                <span
-                  style={{
-                    float: "right",
-                    paddingRight: "50px",
-                    "font-size": "17px",
-                  }}
-                >
-                  Chennai, India
-                </span>
-
-                <div>
-                  <span
-                    style={{
-                      "font-size": "17px",
-                    }}
-                  >
-                    Bachelor of Engineering in Electronics and Communication
-                  </span>
-                  <span
-                    style={{
-                      float: "right",
-                      "font-size": "17px",
-                      paddingRight: "50px",
-                    }}
-                  >
-                    Aug 2018 - Jul 2022
-                  </span>
-                </div>
-                <span
-                  style={{
-                    "font-size": "17px",
-                  }}
-                >
-                  CGPA: 8.18
-                </span>
-                <div></div>
-              </div>
-            </div>
-          </>
-        )}
-        {workExp === 1 && (
-          <div className="content">
-            <h1>WORK EXPERIENCE</h1>
-
-            <div>
-              <span
-                style={{
-                  paddingRight: "50px",
-                  "font-size": "20px",
-                }}
-              >
-                NCOMPASS
-              </span>
-              <span
-                style={{
-                  float: "right",
-                  paddingRight: "50px",
-                  "font-size": "17px",
-                }}
-              >
-                Chennai, India
-              </span>
-
-              <div>
-                <span
-                  style={{
-                    "font-size": "17px",
-                  }}
-                >
-                  Cloud Engineer, DevOps Engineer
-                </span>
-                <span
-                  style={{
-                    float: "right",
-                    "font-size": "17px",
-                    paddingRight: "50px",
-                  }}
-                >
-                  Aug 2022 – Till Date
-                </span>
-              </div>
-              <div></div>
-            </div>
-            {/* <h3>Key Achievements</h3> */}
-            <ul>
-              <li>
-                Maintained and optimized AWS cloud infrastructure for multiple
-                clients, achieving high availability and enhanced security
-                across diverse environments.
-              </li>
-              <li>
-                Developed and deployed scalable automation tools using Node.js,
-                Python, and AWS SDK, significantly streamlining operations and
-                improving efficiency.
-              </li>
-              <li>
-                Implemented cost reduction strategies that led to a 30% decrease
-                in operational expenses, enhancing budget management for
-                clients.
-              </li>
-              <li>
-                Monitored system performance using JMeter, identifying and
-                addressing potential bottlenecks to maintain optimal system
-                performance.
-              </li>
-              <li>
-                Contributed to disaster recovery planning and execution,
-                including orchestrating automated deployments with
-                CloudFormation templates and Terraform.
-              </li>
-              <li>
-                Reduced deployment time by 50% by implementing performance
-                optimization measures and employing Blue/Green Deployment
-                strategies, which significantly improved overall deployment
-                efficiency.
-              </li>
-              <li>
-                Established and managed comprehensive monitoring and logging
-                solutions using AWS CloudWatch, ensuring robust system
-                visibility and quick issue resolution.
-              </li>
-              <li>
-                Led a team of three in the maintenance and management of a SaaS
-                platform infrastructure supporting over 300 tenants, ensuring
-                high reliability and scalability.
-              </li>
-              <li>
-                Enhanced coding standards and security practices by implementing
-                a quality gateway with Sonar, resulting in improved code quality
-                and reduced vulnerabilities.
-              </li>
-            </ul>
+            <a
+              href="resume.pdf"
+              download="resume.pdf"
+              className="download-button"
+            >
+              <img
+                src="icons8-download-symbol-24.png"
+                alt="download"
+                className="download-icon"
+              />
+              Download Resume
+            </a>
           </div>
-        )}
-      </header>
+        </div>
+      )}
     </div>
   );
 }
