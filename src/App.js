@@ -4,17 +4,62 @@ import "./App.css";
 function App() {
   const [activeTab, setActiveTab] = useState("about");
   const [showModal, setShowModal] = useState(false);
+  const [showArchitecture, setShowArchitecture] = useState(false);
+  const [showPopup, setShowPopup] = useState(false);
 
+  const handleMouseEnter = () => {
+    setShowPopup(true);
+  };
+
+  const handleMouseLeave = () => {
+    setShowPopup(false);
+  };
   const handleTabChange = (tab) => {
     setActiveTab(tab);
+  };
+  const architecureImgClicked = () => {
+    setShowArchitecture(!showArchitecture);
   };
 
   const toggleModal = () => {
     setShowModal(!showModal);
   };
+  const imagesContext = require.context(
+    "../public/logos",
+    false,
+    /\.(png|jpe?g|svg)$/
+  );
+  const images = imagesContext.keys().map(imagesContext);
+  console.log(images.sort())
+  window.onload = () => {
+    const reloading = sessionStorage.getItem("reloading");
+    if (!reloading) {
+      sessionStorage.removeItem("reloading");
+      toggleModal();
+    }
+    sessionStorage.setItem("reloading", "true");
+  };
 
   return (
     <div className="App">
+      {showArchitecture && (
+        <div className="modal" onClick={architecureImgClicked}>
+          <div
+            className="modal-architecture"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <span className="close" onClick={architecureImgClicked}>
+              &times;
+            </span>
+            <img
+              src="infra-architecture.drawio.png"
+              alt="Infrastructure Architecture"
+              className="architecture-img-large"
+              onClick={architecureImgClicked}
+            />
+          </div>
+        </div>
+      )}
       <header className="top-bar">
         <img
           className="profile-img"
@@ -63,6 +108,12 @@ function App() {
           >
             CONTACT
           </button>
+          <button
+            className={activeTab === "JOKE" ? "active" : ""}
+            onClick={() => handleTabChange("JOKE")}
+          >
+            LOL
+          </button>
           <a
             href="resume.pdf"
             download="resume.pdf"
@@ -86,42 +137,54 @@ function App() {
 
       <main className="content">
         {activeTab === "about" && (
-          <section className="about">
-            <h2>About Me</h2>
-            <p>
-              As a Cloud Infrastructure Engineer at NCompass, I manage
-              infrastructure for our client Phonex, a B2B SaaS provider. With
-              more than two years of experience, I specialize in optimizing the
-              reliability, security, cost-efficiency, performance, and
-              monitoring of cloud environments. I architect and maintain robust,
-              scalable solutions tailored to client needs while adhering to
-              industry best practices.
-            </p>
-          </section>
+          <>
+            <section className="about">
+              <h2>About Me</h2>
+              <p>
+                As a Cloud Infrastructure Engineer at NCompass, I manage
+                infrastructure for our client Phonex, a B2B SaaS provider. With
+                more than two years of experience, I specialize in optimizing
+                the reliability, security, cost-efficiency, performance, and
+                monitoring of cloud environments. I architect and maintain
+                robust, scalable solutions tailored to client needs while
+                adhering to industry best practices.
+              </p>
+            </section>
+
+            {images.map((image) => (
+              <img className="profile-logo" src={image} alt={` `} />
+            ))}
+          </>
         )}
-        {activeTab === "about" && (
+        {activeTab === "JOKE" && (
           <section className="about">
             <h2>LOL</h2>
             <p>
-              DevOps, Neither a good ui dev nor a good backend dev but can work and debug both
+              DevOps, Neither a good ui dev nor a good backend dev but can work
+              and debug both
             </p>
             <p>
-              they are <s>like</s> <b>Packers and movers</b> they moves the application from developer's machine into the world (PROD)
+              they are <s>like</s> <b>Packers and movers</b> they moves the
+              application from developer's machine into the world (PROD)
             </p>
             <p>
-              with all the admin access they get they feel like <b>God</b>. 
+              with all the admin access they get they feel like <b>God</b>.
             </p>
             <p>
-              creating machines and serverless servers in the air maintaining the whole instructure in code (IaC) in cloud 
+              creating machines and serverless servers in the air maintaining
+              the whole instructure in code (IaC) in cloud
             </p>
             <p>
-              autmating instructure provisioning and being up to date with new ondemand best practices
+              autmating instructure provisioning and being up to date with new
+              ondemand best practices
             </p>
             <p>
-              with the requirement to work with every team, all the front, back, QA and more teams that I don't even know about. 
+              with the requirement to work with every team, all the front, back,
+              QA and more teams that I don't even know about.
             </p>
             <p>
-              DevOps are the <b>GOAT</b>, and I'm proud to be a DevOps/Cloud Engineer.
+              DevOps are the <b>GOAT</b>, and I'm proud to be a DevOps/Cloud
+              Engineer.
             </p>
           </section>
         )}
@@ -200,8 +263,8 @@ function App() {
               <p>Percentage: 88.41</p>
             </div>
             <div className="degree">
-            <h3>Velammal Matriculation Higher Secondary School</h3>
-            <p>10th</p>
+              <h3>Velammal Matriculation Higher Secondary School</h3>
+              <p>10th</p>
               <p>Chennai, India | Jun 2015 - Apr 2016</p>
               <p>Percentage: 91.6</p>
             </div>
@@ -214,7 +277,9 @@ function App() {
               <h2>Certifications</h2>
               <ul>
                 <li>
-                  <b>AWS Certified Solutions Architect - Associate (Scored 91%)</b>
+                  <b>
+                    AWS Certified Solutions Architect - Associate (Scored 91%)
+                  </b>
                 </li>
                 <li>AWS CloudFormation Master Class</li>
                 <li>AWS Cloud Practitioner Udemy</li>
@@ -293,11 +358,21 @@ function App() {
               </li>
               <li>Secondary private gateway for internal API-level caching</li>
             </ul>
-            <img
-              src="infra-architecture.drawio.png"
-              alt="Infrastructure Architecture"
-              className="architecture-img"
-            />
+            <div className="hover-container">
+              {showPopup && (
+                <div className="popup">
+                  <p>click to enlarge!</p>
+                </div>
+              )}
+              <img
+                src="infra-architecture.drawio.png"
+                alt="Infrastructure Architecture"
+                className="architecture-img"
+                onClick={architecureImgClicked}
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
+              />
+            </div>
           </section>
         )}
       </main>

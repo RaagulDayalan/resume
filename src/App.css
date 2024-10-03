@@ -53,6 +53,9 @@ body {
   border: 2px solid white;
 }
 
+.modal-content h5{
+  align-items: center;
+}
 .logo {
   display: flex;
   flex-direction: column;
@@ -99,6 +102,7 @@ body {
   display: flex;
   align-items: center;
   text-decoration: none;
+  background-color: #6abff8;
 }
 
 .download-icon {
@@ -148,14 +152,29 @@ li {
   margin-bottom: 0.5rem;
 }
 
+.hover-container {
+  position: relative;
+  display: inline-block;
+}
+.popup {
+  position: absolute;
+  left: 45%;
+  background-color: var(--primary-color);
+  border-radius: 100%;
+}
 .architecture-img {
   max-width: 100%;
   height: auto;
   margin-top: 1rem;
   border: 1px solid #ddd;
   border-radius: 4px;
+  cursor: pointer; 
+  transition: border 0.79s;
 }
 
+.architecture-img:hover{
+  border: 5px solid var(--primary-color);
+}
 .modal {
   position: fixed;
   top: 0;
@@ -167,6 +186,17 @@ li {
   justify-content: center;
   align-items: center;
   z-index: 1000;
+}
+.modal-architecture{
+  background-color: var(--modal-bg);
+  color: var(--text-color);
+  padding: 2rem;
+  border-radius: 8px;
+  max-width: 85%;
+  max-height: 85%;
+  overflow-y: auto;
+  position: relative;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .modal-content {
@@ -242,4 +272,53 @@ li {
   .content {
     padding: 1rem;
   }
+}
+
+.profile-logo{
+  width: 200px;
+  height: 150px;
+  /* margin-right: 1rem; */
+  margin-left: 2rem;
+  border: 2px solid white;
+  transition: width 1s ease, height 1s ease;
+}
+
+.profile-logo:hover {
+  width: 250px;
+  height: 200px;
+}
+
+.suggestion-box {
+  position: fixed;
+  top: 2%;
+  right: 2%;
+  padding: 1em 2em;
+  background-color: #f9f9f9;
+  border: 1px solid #ccc;
+  border-radius: 0.5em;
+  box-shadow: 0 0 1em rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 90%;
+  box-sizing: border-box;
+}
+
+.suggestion-box p {
+  margin: 0;
+  padding-right: 1em;
+  font-size: 1em;
+}
+
+.close-button {
+  background: none;
+  border: none;
+  font-size: 1.5em;
+  cursor: pointer;
+  color: #666;
+}
+
+.close-button:hover {
+  color: #333;
 }
