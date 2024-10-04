@@ -30,17 +30,17 @@ function App() {
     /\.(png|jpe?g|svg)$/
   );
   const images = imagesContext.keys().map(imagesContext);
-  console.log(images.sort())
   window.onload = () => {
     const reloading = sessionStorage.getItem("reloading");
     if (!reloading) {
       sessionStorage.removeItem("reloading");
       toggleModal();
-    }
     sessionStorage.setItem("reloading", "true");
+    }
   };
 
   return (
+    <div className="empty-space">
     <div className="App">
       {showArchitecture && (
         <div className="modal" onClick={architecureImgClicked}>
@@ -151,9 +151,6 @@ function App() {
               </p>
             </section>
 
-            {images.map((image) => (
-              <img className="profile-logo" src={image} alt={` `} />
-            ))}
           </>
         )}
         {activeTab === "JOKE" && (
@@ -290,6 +287,7 @@ function App() {
           </>
         )}
         {activeTab === "skills" && (
+          <>
           <section className="skills">
             <h2>SKILLS:</h2>
             <div className="skills-container">
@@ -319,23 +317,28 @@ function App() {
               ))}
             </div>
           </section>
+                      {images.map((image) => (
+                        <img className="profile-logo" src={image} alt={` `} />
+                      ))}
+                      </>
         )}
         {activeTab === "contact" && (
           <section className="contact">
             <h2>Contact Information</h2>
-            <p>Current Location: Chennai, India</p>
-            <p>Phone: +91 9791103580</p>
-            <p>WhatsApp: +91 9791103580</p>
-            <p>
-              Email: <a href="mailto:raagul.d@gmail.com">raagul.d@gmail.com</a>
+            <p>Current Location: <span className="email-text">Chennai, India</span></p>
+            <p>Phone: <span className="email-text">+91 9791103580</span></p>
+            <p>WhatsApp: <span className="email-text">+91 9791103580</span></p>
+            <p >
+              Email: <a className="email-text" href="mailto:raagul.d@gmail.com">raagul.d@gmail.com </a>
             </p>
             <p>
-              <a
+              
+              <a className="email-text"
                 href="https://www.linkedin.com/in/raagul-deenadayalan/"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                LinkedIn Profile
+               <img className="linkedinlogo" src="linkedinlogo.png" alt="linkedin-logo"></img>LinkedIn Profile
               </a>
             </p>
           </section>
@@ -361,7 +364,7 @@ function App() {
             <div className="hover-container">
               {showPopup && (
                 <div className="popup">
-                  <p>click to enlarge!</p>
+                  <p>click image to enlarge</p>
                 </div>
               )}
               <img
@@ -449,6 +452,7 @@ function App() {
           </div>
         </div>
       )}
+    </div>
     </div>
   );
 }

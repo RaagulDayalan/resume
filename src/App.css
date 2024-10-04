@@ -2,20 +2,10 @@
 :root {
   --primary-color: #3498db;
   --secondary-color: #2c3e50;
-  --text-color: #333;
+  --text-color: #f4f4f4;
   --background-color: #f4f4f4;
   --hover-color: #2980b9;
-  --content-bg: white;
-  --modal-bg: white;
-}
-
-[data-theme="dark"] {
-  --primary-color: #58a6e6;
-  --secondary-color: #34495e;
-  --text-color: #f4f4f4;
-  --background-color: #1a1a1a;
-  --hover-color: #3498db;
-  --content-bg: #2c2c2c;
+  --content-bg: rgb(0, 0, 0);
   --modal-bg: #2c2c2c;
 }
 
@@ -27,18 +17,24 @@ body {
   line-height: 1.6;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
-
-.App {
+.empty-space {
   background-color: #1a1a1a;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
 }
 
+.App {
+  background-color: #1a1a1a;
+  display: flex;
+  flex-direction: column;
+}
+
 .top-bar {
   display: flex;
   align-items: center;
   background-color: var(--secondary-color);
+  box-shadow: 0 0 1rem #3498db;
   padding: 1rem;
   color: white;
 }
@@ -122,7 +118,8 @@ body {
   max-width: 800px;
   margin: 2rem auto 0;
   background-color: var(--content-bg);
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  font-size: 1.1rem;
+  box-shadow: 0 0 2rem #3498db;
   border-radius: 8px;
   transition: background-color 0.3s ease;
 }
@@ -132,9 +129,14 @@ h2 {
   border-bottom: 2px solid var(--primary-color);
   padding-bottom: 0.5rem;
 }
+.email-text {
+  font-size: 20px;
+  color: #bbeefd;
+  word-wrap: break-word;
+}
 
 .job h3, .degree h3 {
-  color: var(--secondary-color);
+  color: var(--primary-color);
   margin-bottom: 0.5rem;
 }
 
@@ -159,6 +161,7 @@ li {
 .popup {
   position: absolute;
   left: 45%;
+  top: 45%;
   background-color: var(--primary-color);
   border-radius: 100%;
 }
@@ -173,7 +176,7 @@ li {
 }
 
 .architecture-img:hover{
-  border: 5px solid var(--primary-color);
+  box-shadow: 0 0 2rem rgb(62, 157, 235);
 }
 .modal {
   position: fixed;
@@ -189,6 +192,7 @@ li {
 }
 .modal-architecture{
   background-color: var(--modal-bg);
+  box-shadow: 0 0 2rem #3498db;
   color: var(--text-color);
   padding: 2rem;
   border-radius: 8px;
@@ -201,6 +205,7 @@ li {
 
 .modal-content {
   background-color: var(--modal-bg);
+  box-shadow: 0 0 2rem #3498db;
   color: var(--text-color);
   padding: 2rem;
   border-radius: 8px;
@@ -275,17 +280,30 @@ li {
 }
 
 .profile-logo{
-  width: 200px;
-  height: 150px;
+  width: 150px;
+  height: 100px;
   /* margin-right: 1rem; */
+  margin-top: 2rem;
   margin-left: 2rem;
-  border: 2px solid white;
   transition: width 1s ease, height 1s ease;
 }
 
+.linkedinlogo{
+  width: 30px;
+  height: 30px;
+  margin-right: 1rem;
+  /* margin-top: 2rem;
+  margin-left: 2rem; */
+  transition: width 1s ease, height 1s ease;
+}
+
+.linkedinlogo:hover {
+  width: 40px;
+  height: 40px;
+}
 .profile-logo:hover {
-  width: 250px;
-  height: 200px;
+  width: 200px;
+  height: 150px;
 }
 
 .suggestion-box {
@@ -296,7 +314,7 @@ li {
   background-color: #f9f9f9;
   border: 1px solid #ccc;
   border-radius: 0.5em;
-  box-shadow: 0 0 1em rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 2rem rgb(62, 157, 235);
   z-index: 1000;
   display: flex;
   align-items: center;
