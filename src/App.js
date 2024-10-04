@@ -71,6 +71,7 @@ function App() {
           <h1>RAAGUL D</h1>
           <h2>Cloud Engineer, DevOps Engineer</h2>
         </div>
+        
         <nav className="nav-buttons">
           <button
             className={activeTab === "about" ? "active" : ""}
