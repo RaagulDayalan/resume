@@ -1,22 +1,21 @@
-import React, { useState } from "react";
+import React, { useState,useRef } from "react";
 import "./App.css";
 
 function App() {
-  const [activeTab, setActiveTab] = useState("about");
+  const [activeTab, setActiveTab] = useState("everything");
   const [showModal, setShowModal] = useState(false);
   const [showArchitecture, setShowArchitecture] = useState(false);
-  const [showPopup, setShowPopup] = useState(false);
+  const aboutRef = useRef(null);
+  const experienceRef = useRef(null);
+  const educationRef = useRef(null);
+  const certificationsRef = useRef(null);
+  const skillsRef = useRef(null);
+  const contactRef = useRef(null);
+  const architectureRef = useRef(null);
 
-  const handleMouseEnter = () => {
-    setShowPopup(true);
-  };
-
-  const handleMouseLeave = () => {
-    setShowPopup(false);
-  };
-  const handleTabChange = (tab) => {
-    setActiveTab(tab);
-  };
+  // const handleTabChange = (tab) => {
+  //   setActiveTab(tab);
+  // };
   const architecureImgClicked = () => {
     setShowArchitecture(!showArchitecture);
   };
@@ -38,7 +37,12 @@ function App() {
     sessionStorage.setItem("reloading", "true");
     }
   };
-
+  const scrollToSection = (ref) => {
+    window.scrollTo({
+      top: ref.current.offsetTop,
+      behavior: "smooth",
+    });
+  };
   return (
     <div className="empty-space">
     <div className="App">
@@ -73,48 +77,7 @@ function App() {
         </div>
         
         <nav className="nav-buttons">
-          <button
-            className={activeTab === "about" ? "active" : ""}
-            onClick={() => handleTabChange("about")}
-          >
-            ABOUT
-          </button>
-          <button
-            className={activeTab === "experience" ? "active" : ""}
-            onClick={() => handleTabChange("experience")}
-          >
-            WORK EXPERIENCE
-          </button>
-          <button
-            className={activeTab === "education" ? "active" : ""}
-            onClick={() => handleTabChange("education")}
-          >
-            EDUCATION
-          </button>
-          <button
-            className={activeTab === "certifications" ? "active" : ""}
-            onClick={() => handleTabChange("certifications")}
-          >
-            CERTIFICATIONS
-          </button>
-          <button
-            className={activeTab === "skills" ? "active" : ""}
-            onClick={() => handleTabChange("skills")}
-          >
-            SKILLS
-          </button>
-          <button
-            className={activeTab === "contact" ? "active" : ""}
-            onClick={() => handleTabChange("contact")}
-          >
-            CONTACT
-          </button>
-          <button
-            className={activeTab === "JOKE" ? "active" : ""}
-            onClick={() => handleTabChange("JOKE")}
-          >
-            LOL
-          </button>
+          
           <a
             href="resume.pdf"
             download="resume.pdf"
@@ -127,19 +90,28 @@ function App() {
             />
             RESUME
           </a>
-          <button
-            className={activeTab === "architecture" ? "active" : ""}
-            onClick={() => handleTabChange("architecture")}
+
+          {/* <button
+            className={activeTab === "JOKE" ? "active" : ""}
+            onClick={() => handleTabChange("everything")}
           >
-            ARCHITECTURES
-          </button>
+            LOL
+          </button> */}
         </nav>
       </header>
-
+      <div className="sidebar">
+          <button onClick={() => scrollToSection(aboutRef)}>About</button>
+          <button onClick={() => scrollToSection(experienceRef)}>Experience</button>
+          <button onClick={() => scrollToSection(educationRef)}>Education</button>
+          <button onClick={() => scrollToSection(certificationsRef)}>Certifications</button>
+          <button onClick={() => scrollToSection(skillsRef)}>Skills</button>
+          <button onClick={() => scrollToSection(contactRef)}>Contact</button>
+          <button onClick={() => scrollToSection(architectureRef)}>Architecture</button>
+        </div>
       <main className="content">
-        {activeTab === "about" && (
+        {(activeTab === "about" || activeTab === "everything") && (
           <>
-            <section className="about">
+            <section className="about" ref={aboutRef}>
               <h2>About Me</h2>
               <p>
                 As a Cloud Infrastructure Engineer at NCompass, I manage
@@ -158,27 +130,23 @@ function App() {
           <section className="about">
             <h2>LOL</h2>
             <p>
-              DevOps, Neither a good ui dev nor a good backend dev but can work
-              and debug both
-            </p>
-            <p>
+              DevOps are neither a good ui dev nor a good backend dev but we can work
+              and debug both.
+              </p>
+              <p>
               they are <s>like</s> <b>Packers and movers</b> they moves the
-              application from developer's machine into the world (PROD)
-            </p>
-            <p>
+              application from developer's machine on to the world (PROD)
+            
               with all the admin access they get they feel like <b>God</b>.
-            </p>
-            <p>
+            
               creating machines and serverless servers in the air maintaining
               the whole instructure in code (IaC) in cloud
-            </p>
-            <p>
-              autmating instructure provisioning and being up to date with new
-              ondemand best practices
-            </p>
-            <p>
+            
+              automating instructure provisioning and being up to date with new
+              on-demand best practices
+            
               with the requirement to work with every team, all the front, back,
-              QA and more teams that I don't even know about.
+              QA and more teams that I don't even know about...
             </p>
             <p>
               DevOps are the <b>GOAT</b>, and I'm proud to be a DevOps/Cloud
@@ -187,12 +155,24 @@ function App() {
           </section>
         )}
 
-        {activeTab === "experience" && (
-          <section className="experience">
+        {(activeTab === "experience" || activeTab === "everything") && (
+          <section className="experience" ref={experienceRef}>
             <h2>Work Experience</h2>
             <div className="job">
+            <h3>Influx - Cloud Engineer, DevOps Engineer</h3>
+              <p className="job-details">Chennai, India | Nov 2024 – Present</p>
+              <ul>
+                <li>
+                  Automated Infrastructure using aws-sdks, python, lambdas, event scheduler and stepfunctions reducing manual intervensions
+                </li>
+                <li>
+                  Designed cloud architecture making application serverless, moving from jenkins to code build, ec2 to lambda and s3-CloudFront reducing operational cost by 50%
+                </li>
+                
+              </ul>
+
               <h3>NCOMPASS - Cloud Engineer, DevOps Engineer</h3>
-              <p className="job-details">Chennai, India | Aug 2022 – Present</p>
+              <p className="job-details">Chennai, India | Aug 2022 – Nov 2024</p>
               <ul>
                 <li>
                   Maintained and optimized AWS cloud infrastructure for multiple
@@ -245,8 +225,8 @@ function App() {
           </section>
         )}
 
-        {activeTab === "education" && (
-          <section className="education">
+        {(activeTab === "education" || activeTab === "everything") && (
+          <section className="education" ref={educationRef}>
             <h2>Education</h2>
             <div className="degree">
               <h3>ANNA UNIVERSITY</h3>
@@ -269,9 +249,9 @@ function App() {
           </section>
         )}
 
-        {activeTab === "certifications" && (
+        {(activeTab === "certifications" || activeTab === "everything") && (
           <>
-            <section className="certifications">
+            <section className="certifications" ref={certificationsRef}>
               <h2>Certifications</h2>
               <ul>
                 <li>
@@ -287,9 +267,9 @@ function App() {
             </section>
           </>
         )}
-        {activeTab === "skills" && (
+        {(activeTab === "skills" || activeTab === "everything") && (
           <>
-          <section className="skills">
+          <section className="skills" ref={skillsRef}>
             <h2>SKILLS:</h2>
             <div className="skills-container">
               {[
@@ -323,8 +303,8 @@ function App() {
                       ))}
                       </>
         )}
-        {activeTab === "contact" && (
-          <section className="contact">
+        {(activeTab === "contact" || activeTab === "everything") && (
+          <section className="contact" ref={contactRef}>
             <h2>Contact Information</h2>
             <p>Current Location: <span className="email-text">Chennai, India</span></p>
             <p>Phone: <span className="email-text">+91 9791103580</span></p>
@@ -345,36 +325,15 @@ function App() {
           </section>
         )}
 
-        {activeTab === "architecture" && (
-          <section className="architecture">
-            <h2>Web Architecture</h2>
-            <ul>
-              <li>UI application on S3 served by CloudFront</li>
-              <li>
-                Main backend: Containerized Spring Boot application running on
-                ECS, fronted by private NLB and provided by ASG
-              </li>
-              <li>Secondary backend: Node.js and Python Lambdas</li>
-              <li>Database: RDS-backed MySQL server on high-security server</li>
-              <li>Caching: Elastic Cache Redis</li>
-              <li>
-                APIs: Provided by API Gateway integrated with Cognito authorizer
-              </li>
-              <li>Secondary private gateway for internal API-level caching</li>
-            </ul>
+        {(activeTab === "architecture" || activeTab === "everything") && (
+          <section className="architecture" ref={architectureRef}> 
+            <h2>My Architectural Experiences</h2>
             <div className="hover-container">
-              {showPopup && (
-                <div className="popup">
-                  <p>click image to enlarge</p>
-                </div>
-              )}
               <img
                 src="infra-architecture.drawio.png"
                 alt="Infrastructure Architecture"
                 className="architecture-img"
                 onClick={architecureImgClicked}
-                onMouseEnter={handleMouseEnter}
-                onMouseLeave={handleMouseLeave}
               />
             </div>
           </section>
