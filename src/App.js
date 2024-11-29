@@ -163,10 +163,10 @@ function App() {
               <p className="job-details">Chennai, India | Nov 2024 – Present</p>
               <ul>
                 <li>
-                  Automated Infrastructure using aws-sdks, python, lambdas, event scheduler and stepfunctions reducing manual intervensions
+                Automated infrastructure using AWS SDKs, Python, Lambda, Event Scheduler, and Step Functions, significantly reducing manual interventions.         
                 </li>
                 <li>
-                  Designed cloud architecture making application serverless, moving from jenkins to code build, ec2 to lambda and s3-CloudFront reducing operational cost by 50%
+                Designed and implemented a serverless architecture, migrating from Jenkins to CodeBuild, EC2 to Lambda, and S3 to CloudFront, reducing operational costs by 50%.
                 </li>
                 
               </ul>
