@@ -5,13 +5,13 @@ function App() {
   const [activeTab, setActiveTab] = useState("about");
   const [showModal, setShowModal] = useState(false);
   const [showArchitecture, setShowArchitecture] = useState(false);
-  // const [showPopup, setShowPopup] = useState(false);
+  // const [architectPopup, setArchitectPopup] = useState(false);
 
   const handleTabChange = (tab) => {
     setActiveTab(tab);
   };
-  const architecureImgClicked = () => {
-    setShowArchitecture(!showArchitecture);
+  const architecureImgClicked = (WHATtOpOP) => {
+    setShowArchitecture(WHATtOpOP);
   };
 
   const toggleModal = () => {
@@ -35,20 +35,38 @@ function App() {
   return (
     <div className="empty-space">
     <div className="App">
-      {showArchitecture && (
-        <div className="modal" onClick={architecureImgClicked}>
+      {showArchitecture === "infra-architecture.drawio.png"&& (
+        <div className="modal" onClick={()=>{architecureImgClicked("")}}>
           <div
             className="modal-architecture"
             onClick={(e) => e.stopPropagation()}
           >
-            <span className="close" onClick={architecureImgClicked}>
+            <span className="close" onClick={()=>{architecureImgClicked("")}}>
               &times;
             </span>
             <img
               src="infra-architecture.drawio.png"
               alt="Infrastructure Architecture"
               className="architecture-img-large"
-              onClick={architecureImgClicked}
+              onClick={()=>{architecureImgClicked("")}}
+            />
+          </div>
+        </div>
+      )}
+      {showArchitecture === "influx-architecure.jpg" && (
+        <div className="modal" onClick={()=>{architecureImgClicked("")}}>
+          <div
+            className="modal-architecture"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <span className="close" onClick={()=>{architecureImgClicked("")}}>
+              &times;
+            </span>
+            <img
+              src="influx-architecure.jpg"
+              alt="Infrastructure Architecture"
+              className="architecture-img-large"
+              onClick={()=>{architecureImgClicked("")}}
             />
           </div>
         </div>
@@ -355,7 +373,17 @@ function App() {
                 src="infra-architecture.drawio.png"
                 alt="Infrastructure Architecture"
                 className="architecture-img"
-                onClick={architecureImgClicked}
+                onClick={()=>{architecureImgClicked("infra-architecture.drawio.png")}}
+              />
+            </div>
+            </li>
+              <li> this is my second cloud architecture - for Influx saas provider
+            <div className="hover-container">
+              <img
+                src="influx-architecure.jpg"
+                alt="influx-architecure"
+                className="architecture-img"
+                onClick={()=>{architecureImgClicked("influx-architecure.jpg")}}
               />
             </div>
             </li>
