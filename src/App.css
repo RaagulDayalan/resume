@@ -18,14 +18,13 @@ body {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 .empty-space {
+  background-image: url("../public/c137d5f3-c0c9-45ba-bc20-6d4b85afb30c.webp");
   background-color: #1a1a1a;
-  display: flex;
-  flex-direction: column;
   min-height: 100vh;
+  min-width: 100vh;
 }
 
 .App {
-  background-color: #1a1a1a;
   display: flex;
   flex-direction: column;
 }

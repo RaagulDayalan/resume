@@ -150,11 +150,11 @@ function App() {
               <h2>About Me</h2>
               <p>
                 As a Cloud / DevOps Engineer, I manage infrastructure for my clients, 
-                With almost 3 years of experience, 
-                I specialize in optimizing the reliability, security, cost-efficiency, performance, and
-                monitoring of cloud environments. I architect and maintain
-                robust, scalable solutions tailored to client needs while
-                adhering to industry best practices.
+                With almost 3 years of experience, I specialize in optimizing the reliability,
+                security, performance, and cost-efficiency of cloud environments. Proficient in Node.js, Python, and MySQL,
+                I architect and maintain robust, scalable solutions, leveraging 
+                infrastructure automation to enhance operational efficiency and reduce costs by up to 40%.
+                My work is rooted in industry best practices, ensuring that all solutions are tailored to client needs and deliver exceptional results.
               </p>
             </section>
 
