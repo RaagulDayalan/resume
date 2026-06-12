@@ -80,7 +80,7 @@ export default function App() {
             </div>
 
             <div className="modal-badges">
-              <span className="badge badge-blue">AWS Certified (92%)</span>
+              <span className="badge badge-gray">AWS Certified (92%)</span>
               <span className="badge badge-gray">4+ Years</span>
               <span className="badge badge-gray">Chennai, India</span>
             </div>
@@ -154,7 +154,7 @@ export default function App() {
               and tuned to each client's exact requirements.
             </p>
             <div className="hero-badges">
-              <span className="badge badge-blue">AWS Certified</span>
+              <span className="badge badge-gray">AWS Certified</span>
               <span className="badge badge-gray">4+ Years</span>
               <span className="badge badge-gray">Chennai, India</span>
             </div>
@@ -170,7 +170,7 @@ export default function App() {
             <div className="job-card">
               <div className="job-header">
                 <div>
-                  <h3 className="job-company">Influx</h3>
+                  <h3 className="job-company">Influx Worldwide</h3>
                   <p className="job-meta">DevOps Engineer · Chennai, India</p>
                 </div>
                 <span className="job-date">Nov 2024 – Present</span>
@@ -188,7 +188,7 @@ export default function App() {
             <div className="job-card">
               <div className="job-header">
                 <div>
-                  <h3 className="job-company">NCOMPASS</h3>
+                  <h3 className="job-company">NCompass</h3>
                   <p className="job-meta">DevOps Engineer · Chennai, India</p>
                 </div>
                 <span className="job-date">Aug 2022 – Oct 2024</span>
@@ -241,7 +241,7 @@ export default function App() {
           <div className="section-body">
             <div className="cert-grid">
               {[
-                { name: "AWS Certified Solutions Architect – Associate", detail: "Scored 92%", highlight: true },
+                { name: "AWS Certified Solutions Architect – Associate", detail: "Scored 92%" },
                 { name: "AWS CloudFormation Master Class", detail: "Udemy" },
                 { name: "AWS Cloud Practitioner", detail: "Udemy" },
                 { name: "Introduction to Machine Learning", detail: "" },
