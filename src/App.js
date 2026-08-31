@@ -1,47 +1,122 @@
 import React, { useEffect, useRef, useState } from "react";
+
+import HeaderChrome from "./components/HeaderChrome";
+import SectionLabel from "./components/SectionLabel";
+import RoleCard from "./components/RoleCard";
+import ArchModal from "./components/ArchModal";
+import ProfileModal from "./components/ProfileModal";
+
 import "./App.css";
 
-const SKILLS = [
-  "Amazon Web Services (AWS)", "Terraform", "CloudFormation", "CI/CD",
-  "AWS SDK", "Docker", "Azure", "Git", "Jenkins", "GitHub Actions",
-  "Nginx", "Step Functions", "CloudWatch", "Grafana", "Prometheus",
-  "SonarQube", "JMeter", "Postman", "Node.js", "Python", "Bash",
-  "MySQL", "DynamoDB", "Redis", "Linux", "Shell Scripting",
+const NAV = [
+  { id: "about", label: "About" },
+  { id: "experience", label: "Experience" },
+  { id: "education", label: "Education" },
+  { id: "certifications", label: "Certifications" },
+  { id: "skills", label: "Skills" },
+  { id: "contact", label: "Contact" },
+  { id: "architecture", label: "Architectures" },
 ];
 
-const NAV = [
-  { id: "about",           label: "About" },
-  { id: "experience",      label: "Experience" },
-  { id: "education",       label: "Education" },
-  { id: "certifications",  label: "Certifications" },
-  { id: "skills",          label: "Skills" },
-  { id: "contact",         label: "Contact" },
-  { id: "architecture",    label: "Architectures" },
+const SKILL_CATEGORIES = [
+  {
+    category: "// CLOUD & INFRASTRUCTURE",
+    skills: ["Amazon Web Services (AWS)", "Terraform", "CloudFormation", "Docker", "Azure", "Nginx", "Linux", "Shell Scripting"]
+  },
+  {
+    category: "// CI/CD & AUTOMATION",
+    skills: ["CI/CD", "Jenkins", "GitHub Actions", "AWS SDK", "Step Functions"]
+  },
+  {
+    category: "// OBSERVABILITY & METRICS",
+    skills: ["CloudWatch", "Grafana", "Prometheus", "SonarQube", "JMeter", "Postman"]
+  },
+  {
+    category: "// LANGUAGES & DATABASES",
+    skills: ["Node.js", "Python", "Bash", "MySQL", "DynamoDB", "Redis"]
+  }
+];
+
+const EXPERIENCES = [
+  {
+    company: "Influx Worldwide",
+    role: "DevOps Engineer",
+    location: "Chennai, India",
+    period: "Nov 2024 – Present",
+    status: "active",
+    refCode: "inflx-2024",
+    bullets: [
+      "Automated infrastructure provisioning with AWS SDKs, Python, Lambda, and Step Functions — reduced manual operational workload by ~40%.",
+      "Designed an IP blacklisting solution with a 30-minute rolling rate limiter, cutting malicious traffic incidents by ~25%.",
+      "Implemented CI/CD pipelines with SonarQube quality gates, improving overall code reliability across production deployments.",
+      "Built reusable Terraform modules for client infrastructure, reducing tenant onboarding from days to hours.",
+      "Unified observability across multi-account AWS architectures using Grafana, Prometheus, and CloudWatch.",
+      "Migrated stack from Jenkins + EC2 to CodeBuild + Lambda + S3/CloudFront, slashing monthly infrastructure costs by 50%."
+    ]
+  },
+  {
+    company: "NCompass",
+    role: "DevOps Engineer",
+    location: "Chennai, India",
+    period: "Aug 2022 – Oct 2024",
+    status: "archive",
+    refCode: "ncmp-2022",
+    bullets: [
+      "Maintained and optimized AWS cloud infrastructure for multiple enterprise clients, achieving 99.9% uptime availability.",
+      "Built scalable automation tooling with Node.js, Python, and AWS SDK, significantly streamlining daily cloud operations.",
+      "Drove a 30% overall decrease in operational expenses through targeted cloud resource optimization and right-sizing.",
+      "Identified and resolved bottleneck performance issues using JMeter stress and load testing.",
+      "Orchestrated disaster recovery protocols with CloudFormation and Terraform automated infrastructure deployments.",
+      "Reduced deployment downtime by 50% by introducing Blue/Green deployment strategies.",
+      "Led a team of 3 DevOps engineers maintaining SaaS platform infrastructure supporting 300+ active tenants."
+    ]
+  }
+];
+
+const CERTIFICATIONS = [
+  { name: "AWS Certified Solutions Architect – Associate", detail: "Score: 92%", highlight: true, date: "VERIFIED" },
+  { name: "AWS CloudFormation Master Class", detail: "Udemy Certified", highlight: false, date: "COMPLETED" },
+  { name: "AWS Cloud Practitioner", detail: "Udemy Certified", highlight: false, date: "COMPLETED" },
+  { name: "Introduction to Machine Learning", detail: "Technical Specialization", highlight: false, date: "COMPLETED" },
+  { name: "Python Skill Certification", detail: "HackerRank Verified", highlight: false, date: "VERIFIED" },
+  { name: "MySQL Skill Certification", detail: "HackerRank Verified", highlight: false, date: "VERIFIED" },
+];
+
+const EDUCATIONS = [
+  { school: "Anna University — MSEC", degree: "B.E. Electronics and Communication Engineering", period: "Aug 2018 – Jul 2022", score: "CGPA 8.17 / 10" },
+  { school: "Velammal Matric. Higher Secondary School", degree: "12th Standard (Higher Secondary)", period: "Jun 2017 – Apr 2018", score: "88.41%" },
+  { school: "Velammal Matric. Higher Secondary School", degree: "10th Standard (SSLC)", period: "Jun 2015 – Apr 2016", score: "91.60%" },
+];
+
+const ARCHITECTURES = [
+  {
+    src: "infra-architecture.drawio.png",
+    title: "Phonex — B2B SaaS Infrastructure",
+    desc: "Multi-tenant AWS cloud architecture designed for Phonex's B2B SaaS platform with VPC peering, Terraform modularity, and isolated RDS instances."
+  },
+  {
+    src: "influx-architecure.jpg",
+    title: "Influx — Serverless SaaS Architecture",
+    desc: "Serverless-first event-driven architecture migrated from legacy EC2 + Jenkins to AWS CodeBuild, Lambda, S3, CloudFront, and Step Functions."
+  }
 ];
 
 export default function App() {
-  const [active, setActive]           = useState("about");
-  const [showModal, setShowModal]     = useState(false);
-  const [archModal, setArchModal]     = useState("");
-  const sectionsRef                   = useRef({});
-
-  // const imagesContext = require.context("../public/logos", false, /\.(png|jpe?g|svg)$/);
-  // const logos = imagesContext.keys().map(imagesContext);
-
-  useEffect(() => {
-    if (!sessionStorage.getItem("visited")) {
-      sessionStorage.setItem("visited", "true");
-      setShowModal(true);
-    }
-  }, []);
+  const [active, setActive] = useState("about");
+  const [showProfileModal, setShowProfileModal] = useState(false);
+  const [archModalData, setArchModalData] = useState(null);
+  const sectionsRef = useRef({});
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
-        entries.forEach((e) => { if (e.isIntersecting) setActive(e.target.id); });
+        entries.forEach((e) => {
+          if (e.isIntersecting) setActive(e.target.id);
+        });
       },
-      { rootMargin: "-40% 0px -55% 0px" }
+      { rootMargin: "-30% 0px -50% 0px" }
     );
+
     Object.values(sectionsRef.current).forEach((el) => el && observer.observe(el));
     return () => observer.disconnect();
   }, []);
@@ -50,209 +125,180 @@ export default function App() {
     sectionsRef.current[id]?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
-  const setRef = (id) => (el) => { sectionsRef.current[id] = el; };
+  const setRef = (id) => (el) => {
+    sectionsRef.current[id] = el;
+  };
 
   return (
-    <div className="site">
+    <div className="hud-app-wrapper">
+      {/* ── Fixed Top Status Chrome ── */}
+      <HeaderChrome
+        navItems={NAV}
+        activeSection={active}
+        scrollTo={scrollTo}
+        onOpenProfile={() => setShowProfileModal(true)}
+      />
 
-      {/* ── Arch modal ── */}
-      {archModal && (
-        <div className="overlay" onClick={() => setArchModal("")}>
-          <div className="arch-modal" onClick={(e) => e.stopPropagation()}>
-            <button className="modal-close" onClick={() => setArchModal("")}>✕</button>
-            <img src={archModal} alt="Architecture" className="arch-full" />
-          </div>
-        </div>
-      )}
+      {/* ── Modals ── */}
+      <ProfileModal isOpen={showProfileModal} onClose={() => setShowProfileModal(false)} />
+      <ArchModal archData={archModalData} onClose={() => setArchModalData(null)} />
 
-      {/* ── Profile modal ── */}
-      {showModal && (
-        <div className="overlay" onClick={() => setShowModal(false)}>
-          <div className="profile-modal" onClick={(e) => e.stopPropagation()}>
-            <button className="modal-close" onClick={() => setShowModal(false)}>✕</button>
+      {/* ── Main Container ── */}
+      <main className="hud-main-content">
+        
+        {/* ── 00. ABOUT ── */}
+        <section id="about" ref={setRef("about")} className="hud-section">
+          <SectionLabel sectionNum="§ 00.a" path="~ / devops / bio.md" title="STATEMENT" />
 
-            <div className="modal-top">
-              <img src="raagul-img.jpeg" alt="Raagul D" className="modal-avatar" />
+          <div className="hud-hero-box">
+            <span className="reticle-mark mark-tl"></span>
+            <span className="reticle-mark mark-tr"></span>
+            <span className="reticle-mark mark-bl"></span>
+            <span className="reticle-mark mark-br"></span>
+
+            <div className="hero-header-line">
               <div>
-                <h2 className="modal-name">Raagul D</h2>
-                <p className="modal-title">Cloud &amp; DevOps Engineer</p>
+                <h1 className="hero-name-title">RAAGUL D</h1>
+                <p className="hero-subhead">Cloud &amp; DevOps Engineer</p>
+              </div>
+              <div className="hero-quick-badges">
+                <span className="hud-tag-badge accent-border">AWS Solutions Architect (92%)</span>
+                <span className="hud-tag-badge">4+ Years Exp</span>
+                <span className="hud-tag-badge">Chennai, IN</span>
               </div>
             </div>
 
-            <div className="modal-badges">
-              <span className="badge badge-gray">AWS Certified (92%)</span>
-              <span className="badge badge-gray">4+ Years</span>
-              <span className="badge badge-gray">Chennai, India</span>
+            <div className="hud-statement-body">
+              <p>
+                I am a <strong>Cloud &amp; DevOps Engineer</strong> with 4+ years of experience architecting, automating, and scaling cloud infrastructure for enterprise platforms and multi-tenant SaaS systems.
+              </p>
+              <p>
+                Specializing in <strong>AWS, Terraform, CI/CD pipelines, Docker, Python, Node.js, and unified observability</strong> (Grafana/Prometheus/CloudWatch). I focus on designing highly resilient systems that cut operational overhead and lower cloud expenditure by up to <strong>40%–50%</strong> without sacrificing uptime or performance.
+              </p>
+              <p>
+                Whether migrating monolithic applications to serverless event-driven architectures or setting up zero-downtime Blue/Green deployments with automated SonarQube quality gates, every solution is engineered for long-term scalability and strict security standards.
+              </p>
             </div>
 
-            <div className="modal-info-rows">
-              <div className="modal-info-row">
-                <span className="modal-info-label">Current</span>
-                <span className="modal-info-val">Influx — DevOps Engineer</span>
-              </div>
-              <div className="modal-info-row">
-                <span className="modal-info-label">Phone</span>
-                <a className="modal-info-val" href="tel:+919791103580">+91 97911 03580</a>
-              </div>
-              <div className="modal-info-row">
-                <span className="modal-info-label">Email</span>
-                <a className="modal-info-val" href="mailto:raagul.d@gmail.com">raagul.d@gmail.com</a>
-              </div>
-              <div className="modal-info-row">
-                <span className="modal-info-label">LinkedIn</span>
-                <a className="modal-info-val" href="https://linkedin.com/in/raagul-deenadayalan/" target="_blank" rel="noreferrer">raagul-deenadayalan ↗</a>
-              </div>
-            </div>
-
-            <div className="modal-actions">
-              <a href="resume.pdf" download className="dl-btn">↓ Download Resume</a>
-              <button className="modal-view-btn" onClick={() => setShowModal(false)}>View full profile</button>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* ── Top bar ── */}
-      <header className="topbar">
-        <button className="identity" onClick={() => setShowModal(true)}>
-          <img src="raagul-img.jpeg" alt="Raagul D" className="avatar" />
-          <div>
-            <span className="identity-name">Raagul D</span>
-            <span className="identity-role">Cloud · DevOps Engineer</span>
-          </div>
-        </button>
-
-        <nav className="nav">
-          {NAV.map(({ id, label }) => (
-            <button
-              key={id}
-              className={`nav-item${active === id ? " nav-active" : ""}`}
-              onClick={() => scrollTo(id)}
-            >
-              {label}
-            </button>
-          ))}
-        </nav>
-
-        <a href="resume.pdf" download className="dl-btn-sm">↓ Resume</a>
-      </header>
-
-      {/* ── Page ── */}
-      <div className="page">
-
-        {/* ── About ── */}
-        <section id="about" ref={setRef("about")} className="section">
-          <div className="section-label">About</div>
-          <div className="section-body">
-            <h1 className="hero-name">Raagul D</h1>
-            <p className="hero-role">Cloud &amp; DevOps Engineer</p>
-            <p className="about-bio">
-              4+ years managing cloud infrastructure for clients across diverse industries.
-              I specialise in reliability, security, performance, and cost-efficiency — working across
-              Node.js, Python, and MySQL to architect scalable, automated solutions that cut
-              operational costs by up to 40%. Every system is built to industry best practices
-              and tuned to each client's exact requirements.
-            </p>
-            <div className="hero-badges">
-              <span className="badge badge-gray">AWS Certified</span>
-              <span className="badge badge-gray">4+ Years</span>
-              <span className="badge badge-gray">Chennai, India</span>
+            <div className="hero-actions-row">
+              <a href="mailto:raagul.d@gmail.com" className="hud-btn-primary">
+                [ CONTACT DIRECTLY ]
+              </a>
+              <button className="hud-btn-secondary" onClick={() => setShowProfileModal(true)}>
+                [ VIEW HUD SPEC ]
+              </button>
+              <a href="https://linkedin.com/in/raagul-deenadayalan/" target="_blank" rel="noreferrer" className="hud-btn-secondary">
+                [ LINKEDIN ↗ ]
+              </a>
             </div>
           </div>
         </section>
 
-        <hr className="divider" />
+        {/* ── 01. EXPERIENCE ── */}
+        <section id="experience" ref={setRef("experience")} className="hud-section">
+          <SectionLabel sectionNum="§ 01.a" path="~ / devops / experience.md" title="ROLES" />
 
-        {/* ── Experience ── */}
-        <section id="experience" ref={setRef("experience")} className="section">
-          <div className="section-label">Experience</div>
-          <div className="section-body">
-            <div className="job-card">
-              <div className="job-header">
-                <div>
-                  <h3 className="job-company">Influx Worldwide</h3>
-                  <p className="job-meta">DevOps Engineer · Chennai, India</p>
-                </div>
-                <span className="job-date">Nov 2024 – Present</span>
-              </div>
-              <ul className="job-list">
-                <li>Automated infrastructure provisioning with AWS SDKs, Python, Lambda, and Step Functions — reduced manual workload by ~40%.</li>
-                <li>Designed an IP blacklisting solution with a 30-minute rolling rate limiter, cutting malicious traffic incidents by ~25%.</li>
-                <li>Implemented CI/CD pipelines with SonarQube quality gates, improving code reliability across deployments.</li>
-                <li>Built reusable Terraform modules for client infrastructure, reducing onboarding from days to hours.</li>
-                <li>Unified observability across AWS accounts using Grafana, Prometheus, and CloudWatch.</li>
-                <li>Migrated stack from Jenkins + EC2 to CodeBuild + Lambda + S3/CloudFront, cutting operational cost by 50%.</li>
-              </ul>
-            </div>
-
-            <div className="job-card">
-              <div className="job-header">
-                <div>
-                  <h3 className="job-company">NCompass</h3>
-                  <p className="job-meta">DevOps Engineer · Chennai, India</p>
-                </div>
-                <span className="job-date">Aug 2022 – Oct 2024</span>
-              </div>
-              <ul className="job-list">
-                <li>Maintained and optimised AWS cloud infrastructure for multiple clients, achieving high availability and enhanced security.</li>
-                <li>Built scalable automation tooling with Node.js, Python, and AWS SDK, significantly streamlining operations.</li>
-                <li>Drove a 30% decrease in operational expenses through targeted cost-reduction strategies.</li>
-                <li>Identified and resolved system bottlenecks via JMeter performance monitoring.</li>
-                <li>Orchestrated disaster recovery with CloudFormation and Terraform automated deployments.</li>
-                <li>Reduced deployment time by 50% using Blue/Green deployment strategies.</li>
-                <li>Managed AWS CloudWatch monitoring and logging for robust system visibility.</li>
-                <li>Led a team of three maintaining a SaaS platform infrastructure supporting 300+ tenants.</li>
-                <li>Improved code quality and reduced vulnerabilities by rolling out SonarQube quality gates.</li>
-              </ul>
-            </div>
+          <div className="hud-roles-list">
+            {EXPERIENCES.map((exp) => (
+              <RoleCard key={exp.company + exp.period} {...exp} />
+            ))}
           </div>
         </section>
 
-        <hr className="divider" />
+        {/* ── 02. EDUCATION ── */}
+        <section id="education" ref={setRef("education")} className="hud-section">
+          <SectionLabel sectionNum="§ 02.a" path="~ / devops / education.md" title="ACADEMICS" />
 
-        {/* ── Education ── */}
-        <section id="education" ref={setRef("education")} className="section">
-          <div className="section-label">Education</div>
-          <div className="section-body">
-            {[
-              { school: "Anna University — MSEC", degree: "B.E. Electronics and Communication", period: "Aug 2018 – Jul 2022", score: "CGPA 8.17 / 10" },
-              { school: "Velammal Matric. Higher Secondary", degree: "12th Standard", period: "Jun 2017 – Apr 2018", score: "88.41%" },
-              { school: "Velammal Matric. Higher Secondary", degree: "10th Standard", period: "Jun 2015 – Apr 2016", score: "91.6%" },
-            ].map(({ school, degree, period, score }) => (
-              <div key={school + degree} className="edu-row">
-                <div className="edu-left">
-                  <p className="edu-school">{school}</p>
-                  <p className="edu-degree">{degree}</p>
+          <div className="hud-edu-grid">
+            {EDUCATIONS.map(({ school, degree, period, score }) => (
+              <div key={school + degree} className="hud-edu-card">
+                <span className="reticle-mark mark-tl"></span>
+                <span className="reticle-mark mark-tr"></span>
+                <span className="reticle-mark mark-bl"></span>
+                <span className="reticle-mark mark-br"></span>
+
+                <div className="edu-top-row">
+                  <div>
+                    <h4 className="edu-school-name">{school}</h4>
+                    <p className="edu-degree-title">{degree}</p>
+                  </div>
+                  <span className="edu-score-chip">{score}</span>
                 </div>
-                <div className="edu-right">
-                  <p className="edu-period">{period}</p>
-                  <p className="edu-score">{score}</p>
+                <div className="edu-bottom-row">
+                  <span className="edu-period-tag">PERIOD: {period}</span>
                 </div>
               </div>
             ))}
           </div>
         </section>
 
-        <hr className="divider" />
+        {/* ── 03. CERTIFICATIONS ── */}
+        <section id="certifications" ref={setRef("certifications")} className="hud-section">
+          <SectionLabel sectionNum="§ 03.a" path="~ / devops / certifications.md" title="CREDENTIALS" />
 
-        {/* ── Certifications ── */}
-        <section id="certifications" ref={setRef("certifications")} className="section">
-          <div className="section-label">Certifications</div>
-          <div className="section-body">
-            <div className="cert-grid">
+          <div className="hud-cert-grid">
+            {CERTIFICATIONS.map(({ name, detail, highlight, date }) => (
+              <div key={name} className={`hud-cert-card ${highlight ? "cert-highlight" : ""}`}>
+                <span className="cert-glyph">✦</span>
+                <div className="cert-content">
+                  <div className="cert-name-line">{name}</div>
+                  {detail && <div className="cert-detail-line">{detail}</div>}
+                </div>
+                <span className="cert-status-tag">{date}</span>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* ── 04. SKILLS ── */}
+        <section id="skills" ref={setRef("skills")} className="hud-section">
+          <SectionLabel sectionNum="§ 04.a" path="~ / devops / skills.md" title="STACK" />
+
+          <div className="hud-skills-categories">
+            {SKILL_CATEGORIES.map(({ category, skills }) => (
+              <div key={category} className="hud-skill-group">
+                <div className="skill-category-title">{category}</div>
+                <div className="skill-chips-wrap">
+                  {skills.map((skill) => (
+                    <span key={skill} className="hud-chip">
+                      <span className="chip-prefix">#</span> {skill}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* ── 05. CONTACT ── */}
+        <section id="contact" ref={setRef("contact")} className="hud-section">
+          <SectionLabel sectionNum="§ 05.a" path="~ / devops / contact.md" title="CONNECT" />
+
+          <div className="hud-contact-box">
+            <span className="reticle-mark mark-tl"></span>
+            <span className="reticle-mark mark-tr"></span>
+            <span className="reticle-mark mark-bl"></span>
+            <span className="reticle-mark mark-br"></span>
+
+            <div className="hud-contact-grid">
               {[
-                { name: "AWS Certified Solutions Architect – Associate", detail: "Scored 92%" },
-                { name: "AWS CloudFormation Master Class", detail: "Udemy" },
-                { name: "AWS Cloud Practitioner", detail: "Udemy" },
-                { name: "Introduction to Machine Learning", detail: "" },
-                { name: "Python Skill Certification", detail: "HackerRank" },
-                { name: "MySQL Skill Certification", detail: "HackerRank" },
-              ].map(({ name, detail, highlight }) => (
-                <div key={name} className={`cert-card${highlight ? " cert-highlight" : ""}`}>
-                  <span className="cert-icon">✦</span>
-                  <div>
-                    <p className="cert-name">{name}</p>
-                    {detail && <p className="cert-detail">{detail}</p>}
+                { label: "LOCATION", val: "Chennai, Tamil Nadu, India", href: null, icon: "📍" },
+                { label: "PHONE", val: "+91 97911 03580", href: "tel:+919791103580", icon: "📞" },
+                { label: "EMAIL", val: "raagul.d@gmail.com", href: "mailto:raagul.d@gmail.com", icon: "✉️" },
+                { label: "WHATSAPP", val: "+91 97911 03580", href: "https://wa.me/919791103580", icon: "💬" },
+                { label: "LINKEDIN", val: "raagul-deenadayalan", href: "https://linkedin.com/in/raagul-deenadayalan/", icon: "🔗" },
+              ].map(({ label, val, href, icon }) => (
+                <div key={label} className="contact-item-row">
+                  <span className="contact-icon-col">{icon}</span>
+                  <div className="contact-info-col">
+                    <span className="contact-label-tag">{label}</span>
+                    {href ? (
+                      <a href={href} target="_blank" rel="noreferrer" className="contact-val-link">
+                        {val} <span className="arrow-icon">↗</span>
+                      </a>
+                    ) : (
+                      <span className="contact-val-text">{val}</span>
+                    )}
                   </div>
                 </div>
               ))}
@@ -260,76 +306,45 @@ export default function App() {
           </div>
         </section>
 
-        <hr className="divider" />
+        {/* ── 06. ARCHITECTURES ── */}
+        <section id="architecture" ref={setRef("architecture")} className="hud-section">
+          <SectionLabel sectionNum="§ 06.a" path="~ / devops / architecture.md" title="DIAGRAMS" />
 
-        {/* ── Skills ── */}
-        <section id="skills" ref={setRef("skills")} className="section">
-          <div className="section-label">Skills</div>
-          <div className="section-body">
-            <div className="chips-wrap">
-              {SKILLS.map((s) => <span key={s} className="chip">{s}</span>)}
-            </div>
-            
-          </div>
-        </section>
+          <div className="hud-arch-grid">
+            {ARCHITECTURES.map((arch) => (
+              <div key={arch.src} className="hud-arch-card" onClick={() => setArchModalData(arch)}>
+                <span className="reticle-mark mark-tl"></span>
+                <span className="reticle-mark mark-tr"></span>
+                <span className="reticle-mark mark-bl"></span>
+                <span className="reticle-mark mark-br"></span>
 
-        <hr className="divider" />
-
-        {/* ── Contact ── */}
-        <section id="contact" ref={setRef("contact")} className="section">
-          <div className="section-label">Contact</div>
-          <div className="section-body">
-            <div className="contact-grid">
-              {[
-                { icon: "📍", label: "Location", value: "Chennai, India", href: null },
-                { icon: "📞", label: "Phone", value: "+91 97911 03580", href: "tel:+919791103580" },
-                { icon: "✉️", label: "Email", value: "raagul.d@gmail.com", href: "mailto:raagul.d@gmail.com" },
-                { icon: "💬", label: "WhatsApp", value: "+91 97911 03580", href: "https://wa.me/919791103580" },
-                { icon: "🔗", label: "LinkedIn", value: "raagul-deenadayalan", href: "https://linkedin.com/in/raagul-deenadayalan/" },
-              ].map(({ icon, label, value, href }) => (
-                <div key={label} className="contact-row">
-                  <span className="contact-icon">{icon}</span>
-                  <div>
-                    <p className="contact-label">{label}</p>
-                    {href
-                      ? <a className="contact-value" href={href} target="_blank" rel="noreferrer">{value}</a>
-                      : <p className="contact-value">{value}</p>
-                    }
-                  </div>
+                <div className="arch-thumb-box">
+                  <img src={arch.src} alt={arch.title} className="arch-thumb-img" />
                 </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <hr className="divider" />
-
-        {/* ── Architecture ── */}
-        <section id="architecture" ref={setRef("architecture")} className="section">
-          <div className="section-label">Architectures</div>
-          <div className="section-body">
-            {[
-              { src: "infra-architecture.drawio.png", title: "Phonex — B2B SaaS Infrastructure", desc: "Multi-tenant cloud architecture for Phonex's B2B SaaS platform." },
-              { src: "influx-architecure.jpg",        title: "Influx — SaaS Infrastructure",    desc: "Serverless-first architecture for Influx, migrated from EC2 to Lambda + S3/CloudFront." },
-            ].map(({ src, title, desc }) => (
-              <div key={src} className="arch-card" onClick={() => setArchModal(src)}>
-                <img src={src} alt={title} className="arch-thumb" />
-                <div className="arch-info">
-                  <p className="arch-title">{title}</p>
-                  <p className="arch-desc">{desc}</p>
-                  <span className="arch-cta">View full diagram →</span>
+                <div className="arch-card-info">
+                  <h4 className="arch-card-title">{arch.title}</h4>
+                  <p className="arch-card-desc">{arch.desc}</p>
+                  <span className="arch-card-cta">[ CLICK TO ENLARGE DIAGRAM → ]</span>
                 </div>
               </div>
             ))}
           </div>
         </section>
 
-        <footer className="footer">
-          <p>© {new Date().getFullYear()} Raagul D · Built with React</p>
-          <a href="resume.pdf" download className="dl-btn-sm">↓ Download Resume</a>
+        {/* ── Footer ── */}
+        <footer className="hud-footer">
+          <div className="footer-left">
+            <span>© {new Date().getFullYear()} RAAGUL D · CLOUD &amp; DEVOPS ENGINEER</span>
+            <span className="footer-sys">SYS_STATUS: ONLINE [200 OK]</span>
+          </div>
+          <div className="footer-right">
+            <a href="resume.pdf" download className="hud-dl-btn">
+              ↓ DOWNLOAD RESUME
+            </a>
+          </div>
         </footer>
 
-      </div>
+      </main>
     </div>
   );
 }
